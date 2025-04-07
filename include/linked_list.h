@@ -12,8 +12,8 @@
         TYPE data; \
         struct Node_##TYPE* next; \
     } Node_##TYPE; \
-    Node_##TYPE* node_##TYPE##__create(TYPE);\
-    Node_##TYPE* node_##TYPE##_destroy(Node_##TYPE*);\
+    Node_##TYPE* node_##TYPE##_create(TYPE); \
+    Node_##TYPE* node_##TYPE##_destroy(Node_##TYPE*); \
     \
     typedef struct { \
         Node_##TYPE* head; \
@@ -34,7 +34,7 @@
 // Macro para implementación
 // ----------------------------
 #define IMPLEMENT_LINKED_LIST(TYPE) \
-    Node_##TYPE* node_##TYPE##__create(TYPE data){\
+    Node_##TYPE* node_##TYPE##_create(TYPE data){\
         Node_##TYPE* new_node = malloc(sizeof(Node_##TYPE)); \
         new_node->data = data;\
         new_node->next = NULL;\
@@ -71,7 +71,7 @@
         if (!list || pos > list->length) return false; \
         \
         Node_##TYPE* new_node = node_##TYPE##_create(data); \
-        if (!new_node) return false; \        
+        if (!new_node) return false; \
         \
         if (pos == 0) { \
             new_node->next = list->head; \
@@ -89,9 +89,8 @@
             new_node->next = current->next; \
             current->next = new_node; \
         } \
-        \
         list->length++; \
-        return true; \
+            return true; \
     } \
     \
     bool list_##TYPE##_append(List_##TYPE* list, TYPE data) { \
