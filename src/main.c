@@ -1,43 +1,51 @@
-#define LINKED_LIST_IMPLEMENTATION
-#include "linked_list.h"
 #include <stdio.h>
+#define LINKED_LIST_IMPLEMENTATION
+#include "../include/linked_list.h"
 
-void print_int(int value) {
-    printf("%d", value);
+void print_int(int data) {
+    printf("%d", data);
 }
 
-bool int_cmp(int a, int b) {
-    return a == b;
+void print_char(char data) {
+    printf("'%c'", data);
 }
 
-void print_char(char value) {
-    printf("%c", value);
-}
-
-bool char_cmp(char a, char b) {
-    return a == b;
+void print_float(float data) {
+    printf("%.2f", data);
 }
 
 int main() {
-    List_int* nums = list_int_create();
-    list_int_append(nums, 10);
-    list_int_append(nums, 20);
-    
-    printf("Lista: ");
-    list_int_print(nums, print_int); // Usar función concreta para evitar errores
-    
-    list_int_destroy(nums);
-    
-    List_char *chars = list_char_create();
-    list_char_append(chars, 'a');
-    list_char_append(chars, 'b');
-    list_char_append(chars, 'c');
-    list_char_append(chars, 'd');
-    list_char_append(chars, 'e');
+    List_int* int_list = list_int_create();
+    List_char* char_list = list_char_create();
+    List_float* float_list = list_float_create();
 
-    printf("Lista: ");
-    list_char_print(chars, print_char);
+    list_int_append(int_list, 10);
+    list_int_append(int_list, 20);
+    list_int_append(int_list, 30);
 
-    list_char_destroy(chars);
+    list_char_append(char_list, 'A');
+    list_char_append(char_list, 'B');
+    list_char_append(char_list, 'C');
+
+    list_float_append(float_list, 1.23f);
+    list_float_append(float_list, 4.56f);
+    list_float_append(float_list, 7.89f);
+
+    printf("Lista de enteros: ");
+    list_int_print(int_list, print_int);
+    printf("Lista de caracteres: ");
+    list_char_print(char_list, print_char);
+    printf("Lista de flotantes: ");
+    list_float_print(float_list, print_float);
+
+    list_int_destroy(int_list);
+    list_char_destroy(char_list);
+    list_float_destroy(float_list);
+
+    printf("\n\nListas destruidas.\n");
+    list_int_print(int_list, print_int);
+    list_char_print(char_list, print_char);
+    list_float_print(float_list, print_float);
+
     return 0;
 }
